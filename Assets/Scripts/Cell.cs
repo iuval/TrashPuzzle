@@ -1,14 +1,14 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 
 public class Cell : MonoBehaviour
 {
-    public const int CELL_TYPE_FREE = 0;
-    public const int CELL_TYPE_1 = 1;
-    public const int CELL_TYPE_2 = 2;
-    public const int CELL_TYPE_3 = 3;
-    public const int CELL_TYPE_4 = 4;
-    public const int CELL_TYPE_5 = 5;
+    public const int CELL_TYPE_FREE = -1;
+    public const int CELL_TYPE_1 = 0;
+    public const int CELL_TYPE_2 = 1;
+    public const int CELL_TYPE_3 = 2;
+    public const int CELL_TYPE_4 = 3;
+    public const int CELL_TYPE_5 = 4;
 
     private int type;
 

@@ -4,12 +4,10 @@ using System.Collections;
 public class PauseMenu : MonoBehaviour
 {
     public GUISkin skin;
-    private Animator anim;
 
     // Use this for initialization
     void Start()
     {
-        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -17,7 +15,7 @@ public class PauseMenu : MonoBehaviour
     {
 
     }
-        
+
     void OnGUI()
     {
         GUI.skin = skin;
@@ -33,8 +31,6 @@ public class PauseMenu : MonoBehaviour
         if (GUI.Button(new Rect(30, 125, 300, 50), "RESUME"))
         {
             enabled = false;
-            anim.SetTrigger("close_menu");
-            anim.enabled = false;
         }
 
         GUI.Label(new Rect(30, 100, 300, 50), "A.I won the game");

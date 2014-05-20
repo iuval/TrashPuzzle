@@ -41,6 +41,6 @@ public class Timer : MonoBehaviour
         displayMinutes = roundedRestSeconds / 60;
 
         string text = string.Format("{0:00}:{1:00}", displayMinutes, displaySeconds);
-        GUI.Label(new Rect(400, 25, 100, 30), text);
+        GUI.Label(new Rect(500, 10, 100, 30), text);
     }
 }

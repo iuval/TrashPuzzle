@@ -20,6 +20,8 @@ public class Board : MonoBehaviour
     private Cell movingCell;
     private bool acceptsMovement = true;
 
+    public RecycleCanText[] trashCans;
+
     private Player player;
     private TrashFactory trashFactory;
 
@@ -186,6 +188,7 @@ public class Board : MonoBehaviour
         GameObject[] trashes = trashFactory.GetTrash(cells.Count, 0);
         for (int i = 0; i < cells.Count; i++)
         {
+            trashCans[((GameObject)cells[i]).GetComponent<Cell>().getCellType()].AddToTrash(1);
             ((GameObject)cells[i]).GetComponent<Cell>().setCellType(Cell.CELL_TYPE_FREE);
             if (trashes[i] != null)
             {

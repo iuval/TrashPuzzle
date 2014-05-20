@@ -30,7 +30,7 @@ public class HUD : MonoBehaviour
         GUI.skin = skin;
         GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
 
-        GUI.Label(new Rect(Screen.width - 100, Screen.height - 100, 360, 370), player.Points + "");
+        GUI.Label(new Rect(20, Screen.height - 100, 360, 370), player.Points + "");
 
         if (GUI.Button(new Rect(0, 0, 50, 50), "Menu"))
         {
