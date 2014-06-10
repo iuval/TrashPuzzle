@@ -10,10 +10,10 @@ public class Board : MonoBehaviour
 
     private Timer timer;
 
-    public GameObject cell_prefav;
+    public GameObject[] cell_prefavs;
     public int side = 5;
 
-    private float w = 20;
+    private float w = 40;
     private float init_x;
     private float init_y;
 
@@ -215,33 +215,16 @@ public class Board : MonoBehaviour
             {
                 if (i != emptyX || j != emptyY)
                 {
-                    GameObject newCell = (GameObject)GameObject.Instantiate(cell_prefav);
+                    GameObject newCell;
+                    int rand = (int)Random.Range(0, 5f);
+                    newCell = (GameObject)GameObject.Instantiate(cell_prefavs[rand]);
+                    Cell cell = newCell.GetComponent<Cell>();
+                    cell.setCellType(rand);
+
                     Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * w));
                     pos.z = 0;
                     newCell.transform.position = pos;
 
-                    Cell cell = newCell.GetComponent<Cell>();
-                    float rand = Random.Range(0, 1f);
-                    if (rand < 0.2)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_1);
-                    }
-                    else if (rand < 0.4)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_2);
-                    }
-                    else if (rand < 0.6)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_3);
-                    }
-                    else if (rand < 0.8)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_4);
-                    }
-                    else
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_5);
-                    }
                     cell.cell_x = i;
                     cell.cell_y = j;
 
