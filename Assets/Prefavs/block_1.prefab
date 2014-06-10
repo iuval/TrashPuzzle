@@ -52,7 +52,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e0692d77162ae492e97ae0081501fae6, type: 2}
   m_CullingMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
 --- !u!114 &11400000
