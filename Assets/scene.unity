@@ -1171,7 +1171,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsPerCell: 10
   truck: {fileID: 255851923}
-  cell_prefav: {fileID: 100000, guid: 3497c7547b935d64ca47e99a7da2d3ba, type: 2}
+  cell_prefavs:
+  - {fileID: 100000, guid: 3497c7547b935d64ca47e99a7da2d3ba, type: 2}
+  - {fileID: 100000, guid: 095699a5cdba72a468d77fd037d0c94f, type: 2}
+  - {fileID: 100000, guid: 6397fb0eac5089442a664f1dde671bc6, type: 2}
+  - {fileID: 100000, guid: 028eb7b9979b6434382ed6b1b69ec924, type: 2}
+  - {fileID: 100000, guid: 4cbdedc0a4b54304983f065dd6ccebbe, type: 2}
   side: 6
   trashCans:
   - {fileID: 1639919076}
