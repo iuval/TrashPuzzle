@@ -10,7 +10,6 @@ public class TrashFactory : MonoBehaviour
     {
         GameObject[] result = new GameObject[count];
         float trashChance = rnd(100 - (150 / count), 100 / count) / 100f;//  Mathf.Pow(2f, count + 5) 
-        Debug.Log(trashChance);
         float rand;
 
         for (int i = 0; i < count; i++)

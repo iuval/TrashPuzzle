@@ -13,7 +13,7 @@ public class Board : MonoBehaviour
     public GameObject cell_prefav;
     public int side = 5;
 
-    private float w = 50;
+    private float w = 20;
     private float init_x;
     private float init_y;
 
@@ -83,8 +83,8 @@ public class Board : MonoBehaviour
                                         emptyFound = true;
                                         cellMatrix[i, j] = null;
                                         cellMatrix[neig_x, neig_y] = cell_obj;
-
                                         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + (neig_x * w), init_y + (neig_y * w)));
+
                                         cell.Move(neig_x, neig_y, pos.x, pos.y);
 
                                         movingCell = cell;
@@ -196,13 +196,13 @@ public class Board : MonoBehaviour
 
     public void Restart()
     {
-        foreach (Cell child in truck_go.transform.GetComponentsInChildren<Cell>())
+        foreach (Cell child in transform.GetComponentsInChildren<Cell>())
         {
             GameObject.Destroy(child.gameObject);
         }
 
-        init_x = 180;//(truck_go.transform.localScale.x - (side * w)) / 2 + w / 2;
-        init_y = -1180;// (Screen.height - (side * w)) / 2 + w / 2;
+        init_x = 80;//(truck_go.transform.localScale.x - (side * w)) / 2 + w / 2;
+        init_y = 30;// (Screen.height - (side * w)) / 2 + w / 2;
 
         cellMatrix = new GameObject[side, side];
 
@@ -216,7 +216,6 @@ public class Board : MonoBehaviour
                 if (i != emptyX || j != emptyY)
                 {
                     GameObject newCell = (GameObject)GameObject.Instantiate(cell_prefav);
-                    newCell.transform.parent = truck_go.transform;
                     Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * w));
                     pos.z = 0;
                     newCell.transform.position = pos;
