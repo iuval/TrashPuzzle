@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Cell : MonoBehaviour
@@ -21,6 +21,8 @@ public class Cell : MonoBehaviour
     private float target_x;
     private float target_y;
 
+    private Animator anim;
+
     public void setCellType(int type)
     {
         this.type = type;
@@ -31,6 +33,7 @@ public class Cell : MonoBehaviour
             case CELL_TYPE_FREE:
                 {
                     ren.color = Color.green;
+                    anim.SetBool("Clean", false);
                 } break;
             case CELL_TYPE_1:
                 {
@@ -58,6 +61,8 @@ public class Cell : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        anim = GetComponent<Animator>();
+        anim.SetBool("Clean", true);
     }
 
     // Update is called once per frame
