@@ -216,7 +216,7 @@ public class Board : MonoBehaviour
                 if (i != emptyX || j != emptyY)
                 {
                     GameObject newCell;
-                    int rand = (int)Random.Range(0, 5f);
+                    int rand = Random.Range(0, 5);
                     newCell = (GameObject)GameObject.Instantiate(cell_prefavs[rand]);
                     Cell cell = newCell.GetComponent<Cell>();
                     cell.setCellType(rand);
