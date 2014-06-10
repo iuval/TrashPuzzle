@@ -5,6 +5,11 @@ public class Board : MonoBehaviour
 {
     public int pointsPerCell = 50;
 
+    private GameObject truck_go;
+    public Truck truck;
+
+    private Timer timer;
+
     public GameObject cell_prefav;
     public int side = 5;
 
@@ -20,6 +25,8 @@ public class Board : MonoBehaviour
     private Cell movingCell;
     private bool acceptsMovement = true;
 
+    private bool canPlay = true;
+
     public RecycleCanText[] trashCans;
 
     private Player player;
@@ -28,93 +35,61 @@ public class Board : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        timer = GetComponent<Timer>();
         player = GetComponent<Player>();
         trashFactory = GetComponent<TrashFactory>();
 
-        init_x = (Screen.width - (side * w)) / 2 + w / 2;
-        init_y = (Screen.height - (side * w)) / 2 + w / 2;
+        truck.Init();
+        truck_go = truck.gameObject;
 
-        cellMatrix = new GameObject[side, side];
+        Restart();
 
-        int emptyX = Random.Range(0, side);
-        int emptyY = Random.Range(0, side);
+        truck.GoIn();
+    }
 
-        for (int i = 0; i < side; i++)
-        {
-            for (int j = 0; j < side; j++)
-            {
-                if (i != emptyX || j != emptyY)
-                {
-                    GameObject newCell = (GameObject)GameObject.Instantiate(cell_prefav);
-                    Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * w));
-                    pos.z = 0;
-                    newCell.transform.position = pos;
-
-                    Cell cell = newCell.GetComponent<Cell>();
-                    float rand = Random.Range(0, 1f);
-                    if (rand < 0.2)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_1);
-                    }
-                    else if (rand < 0.4)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_2);
-                    }
-                    else if (rand < 0.6)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_3);
-                    }
-                    else if (rand < 0.8)
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_4);
-                    }
-                    else
-                    {
-                        cell.setCellType(Cell.CELL_TYPE_5);
-                    }
-                    cell.cell_x = i;
-                    cell.cell_y = j;
-
-                    cellMatrix[i, j] = newCell;
-                }
-            }
-        }
+    public void StartGame()
+    {
+        canPlay = true;
+        timer.StartTimer();
     }
 
     public void Tap(Vector2 touch)
     {
-        if (acceptsMovement)
+        if (canPlay)
         {
-            bool touchFound = false;
-            bool emptyFound = false;
-            for (int i = 0; !touchFound && i < side; i++)
+            if (acceptsMovement)
             {
-                for (int j = 0; !touchFound && j < side; j++)
+                bool touchFound = false;
+                bool emptyFound = false;
+                for (int i = 0; !touchFound && i < side; i++)
                 {
-                    GameObject cell_obj = cellMatrix[i, j];
-                    if (cell_obj != null && cell_obj.collider2D.OverlapPoint(touch))
+                    for (int j = 0; !touchFound && j < side; j++)
                     {
-                        touchFound = true;
-                        Cell cell = cell_obj.GetComponent<Cell>();
-                        if (cell.getCellType() != Cell.CELL_TYPE_FREE)
+                        GameObject cell_obj = cellMatrix[i, j];
+                        if (cell_obj != null && cell_obj.collider2D.OverlapPoint(touch))
                         {
-                            int neig_x;
-                            int neig_y;
-                            for (int t = 0; !emptyFound && t < neighbours.Length; t++)
+                            touchFound = true;
+                            Cell cell = cell_obj.GetComponent<Cell>();
+                            if (cell.getCellType() != Cell.CELL_TYPE_FREE)
                             {
-                                neig_x = cell.cell_x + neighbours[t][0];
-                                neig_y = cell.cell_y + neighbours[t][1];
-                                if (InBoard(neig_x, neig_y) && cellMatrix[neig_x, neig_y] == null)
+                                int neig_x;
+                                int neig_y;
+                                for (int t = 0; !emptyFound && t < neighbours.Length; t++)
                                 {
-                                    emptyFound = true;
-                                    cellMatrix[i, j] = null;
-                                    cellMatrix[neig_x, neig_y] = cell_obj;
+                                    neig_x = cell.cell_x + neighbours[t][0];
+                                    neig_y = cell.cell_y + neighbours[t][1];
+                                    if (InBoard(neig_x, neig_y) && cellMatrix[neig_x, neig_y] == null)
+                                    {
+                                        emptyFound = true;
+                                        cellMatrix[i, j] = null;
+                                        cellMatrix[neig_x, neig_y] = cell_obj;
 
-                                    Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + (neig_x * w), init_y + (neig_y * w)));
-                                    cell.Move(neig_x, neig_y, pos.x, pos.y);
+                                        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + (neig_x * w), init_y + (neig_y * w)));
+                                        cell.Move(neig_x, neig_y, pos.x, pos.y);
 
-                                    movingCell = cell;
-                                    acceptsMovement = false;
+                                        movingCell = cell;
+                                        acceptsMovement = false;
+                                    }
                                 }
                             }
                         }
@@ -126,55 +101,58 @@ public class Board : MonoBehaviour
 
     public void LongTap(Vector2 touch)
     {
-        if (acceptsMovement)
+        if (canPlay)
         {
-            bool touchFound = false;
-            bool emptyFound = false;
-            for (int i = 0; !touchFound && i < side; i++)
+            if (acceptsMovement)
             {
-                for (int j = 0; !touchFound && j < side; j++)
+                bool touchFound = false;
+                bool emptyFound = false;
+                for (int i = 0; !touchFound && i < side; i++)
                 {
-                    GameObject cell_obj = cellMatrix[i, j];
-                    if (cell_obj != null && cell_obj.collider2D.OverlapPoint(touch))
+                    for (int j = 0; !touchFound && j < side; j++)
                     {
-                        touchFound = true;
-                        int originType = cell_obj.GetComponent<Cell>().getCellType();
-
-                        Queue toCheck = new Queue();
-                        toCheck.Enqueue(cell_obj);
-                        ArrayList alreadyCheked = new ArrayList();
-                        ArrayList cellToChange = new ArrayList();
-                        int neig_x;
-                        int neig_y;
-                        Cell currentCell;
-                        Cell neigCell;
-
-                        GameObject current;
-                        while (toCheck.Count > 0)
+                        GameObject cell_obj = cellMatrix[i, j];
+                        if (cell_obj != null && cell_obj.collider2D.OverlapPoint(touch))
                         {
-                            current = (GameObject)toCheck.Dequeue();
-                            if (!alreadyCheked.Contains(current))
-                            {
-                                alreadyCheked.Add(current);
-                                currentCell = current.GetComponent<Cell>();
+                            touchFound = true;
+                            int originType = cell_obj.GetComponent<Cell>().getCellType();
 
-                                if (currentCell.getCellType() == originType)
+                            Queue toCheck = new Queue();
+                            toCheck.Enqueue(cell_obj);
+                            ArrayList alreadyCheked = new ArrayList();
+                            ArrayList cellToChange = new ArrayList();
+                            int neig_x;
+                            int neig_y;
+                            Cell currentCell;
+                            Cell neigCell;
+
+                            GameObject current;
+                            while (toCheck.Count > 0)
+                            {
+                                current = (GameObject)toCheck.Dequeue();
+                                if (!alreadyCheked.Contains(current))
                                 {
-                                    cellToChange.Add(current);
-                                    for (int t = 0; !emptyFound && t < neighbours.Length; t++)
+                                    alreadyCheked.Add(current);
+                                    currentCell = current.GetComponent<Cell>();
+
+                                    if (currentCell.getCellType() == originType)
                                     {
-                                        neig_x = currentCell.cell_x + neighbours[t][0];
-                                        neig_y = currentCell.cell_y + neighbours[t][1];
-                                        if (InBoard(neig_x, neig_y) && cellMatrix[neig_x, neig_y] != null)
+                                        cellToChange.Add(current);
+                                        for (int t = 0; !emptyFound && t < neighbours.Length; t++)
                                         {
-                                            neigCell = cellMatrix[neig_x, neig_y].GetComponent<Cell>();
-                                            toCheck.Enqueue(cellMatrix[neig_x, neig_y]);
+                                            neig_x = currentCell.cell_x + neighbours[t][0];
+                                            neig_y = currentCell.cell_y + neighbours[t][1];
+                                            if (InBoard(neig_x, neig_y) && cellMatrix[neig_x, neig_y] != null)
+                                            {
+                                                neigCell = cellMatrix[neig_x, neig_y].GetComponent<Cell>();
+                                                toCheck.Enqueue(cellMatrix[neig_x, neig_y]);
+                                            }
                                         }
                                     }
                                 }
                             }
+                            ChangeCells(cellToChange, originType);
                         }
-                        ChangeCells(cellToChange, originType);
                     }
                 }
             }
@@ -214,5 +192,69 @@ public class Board : MonoBehaviour
         {
             acceptsMovement = !movingCell.isMoving();
         }
+    }
+
+    public void Restart()
+    {
+        foreach (Cell child in truck_go.transform.GetComponentsInChildren<Cell>())
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        init_x = 180;//(truck_go.transform.localScale.x - (side * w)) / 2 + w / 2;
+        init_y = -1180;// (Screen.height - (side * w)) / 2 + w / 2;
+
+        cellMatrix = new GameObject[side, side];
+
+        int emptyX = Random.Range(0, side);
+        int emptyY = Random.Range(0, side);
+
+        for (int i = 0; i < side; i++)
+        {
+            for (int j = 0; j < side; j++)
+            {
+                if (i != emptyX || j != emptyY)
+                {
+                    GameObject newCell = (GameObject)GameObject.Instantiate(cell_prefav);
+                    newCell.transform.parent = truck_go.transform;
+                    Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * w));
+                    pos.z = 0;
+                    newCell.transform.position = pos;
+
+                    Cell cell = newCell.GetComponent<Cell>();
+                    float rand = Random.Range(0, 1f);
+                    if (rand < 0.2)
+                    {
+                        cell.setCellType(Cell.CELL_TYPE_1);
+                    }
+                    else if (rand < 0.4)
+                    {
+                        cell.setCellType(Cell.CELL_TYPE_2);
+                    }
+                    else if (rand < 0.6)
+                    {
+                        cell.setCellType(Cell.CELL_TYPE_3);
+                    }
+                    else if (rand < 0.8)
+                    {
+                        cell.setCellType(Cell.CELL_TYPE_4);
+                    }
+                    else
+                    {
+                        cell.setCellType(Cell.CELL_TYPE_5);
+                    }
+                    cell.cell_x = i;
+                    cell.cell_y = j;
+
+                    cellMatrix[i, j] = newCell;
+                }
+            }
+        }
+    }
+
+    public void TimeOut()
+    {
+        canPlay = false;
+        truck.GoOut();
     }
 }

@@ -11,8 +11,16 @@ public class Timer : MonoBehaviour
 
     public int countDownSeconds;
 
-    void Awake()
+    private Board board;
+
+    void Start()
     {
+        board = GetComponent<Board>();
+    }
+
+    public void StartTimer()
+    {
+        enabled = true;
         startTime = Time.time;
     }
 
@@ -20,7 +28,7 @@ public class Timer : MonoBehaviour
     {
         //make sure that your time is based on when this script was first called
         //instead of when your game started
-        float guiTime = Time.time - startTime;
+        int guiTime = (int)(Time.time - startTime);
 
         restSeconds = countDownSeconds - guiTime;
 
@@ -29,9 +37,11 @@ public class Timer : MonoBehaviour
         {
             print("One Minute Left");
         }
-        if (restSeconds == 0)
+        if (restSeconds <= 0)
         {
             print("Time is Over");
+            board.TimeOut();
+            enabled = false;
             //do stuff here
         }
 

@@ -139,6 +139,70 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_Sprite: {fileID: 21300002, guid: a1843f3c768d83b4db45f12d713f9c4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &255851920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 255851922}
+  - 212: {fileID: 255851921}
+  - 114: {fileID: 255851923}
+  m_Layer: 0
+  m_Name: truck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &255851921
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 255851920}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: f104810b1641bf7408551c4ff48cb56e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &255851922
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 255851920}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3, y: 32.5200005, z: 0}
+  m_LocalScale: {x: 7.29523802, y: 7.29524088, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &255851923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 255851920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e959338598dde3b4784e7783ed4f65bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vel: 10
+  board: {fileID: 1879681474}
 --- !u!1 &320086255
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +631,6 @@ GameObject:
   - 114: {fileID: 1032687326}
   - 114: {fileID: 1032687325}
   - 95: {fileID: 1032687327}
-  - 114: {fileID: 1032687328}
   m_Layer: 0
   m_Name: _HUD
   m_TagString: Untagged
@@ -641,18 +704,6 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
---- !u!114 &1032687328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1032687322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 180a65dbc74c88444b2fda4af8c9e17a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  countDownSeconds: 120
 --- !u!1001 &1096200109
 Prefab:
   m_ObjectHideFlags: 0
@@ -1049,6 +1100,7 @@ GameObject:
   - 114: {fileID: 1879681476}
   - 114: {fileID: 1879681477}
   - 114: {fileID: 1879681478}
+  - 114: {fileID: 1879681479}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1068,6 +1120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsPerCell: 10
+  truck: {fileID: 255851923}
   cell_prefav: {fileID: 100000, guid: 3497c7547b935d64ca47e99a7da2d3ba, type: 2}
   side: 6
   trashCans:
@@ -1127,6 +1180,18 @@ MonoBehaviour:
   - {fileID: 100000, guid: 71f3a17690de7af45996a4c11860a524, type: 2}
   - {fileID: 100000, guid: fd848a3c7c2278849982ad9b014f8658, type: 2}
   - {fileID: 100000, guid: 76a1b761da5039d469852c885dfa2c94, type: 2}
+--- !u!114 &1879681479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1879681473}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180a65dbc74c88444b2fda4af8c9e17a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countDownSeconds: 60
 --- !u!1 &1954125524
 GameObject:
   m_ObjectHideFlags: 0
