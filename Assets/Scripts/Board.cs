@@ -52,6 +52,16 @@ public class Board : MonoBehaviour
         timer.StartTimer();
     }
 
+    public void PauseGame()
+    {
+        canPlay = false;
+    }
+
+    public void ResumeGame()
+    {
+        canPlay = true;
+    }
+
     public void PrepareBoard()
     {
     }
@@ -247,6 +257,6 @@ public class Board : MonoBehaviour
     {
         canPlay = false;
 
-        menu.ShowStartGameMenu();
+        menu.OpenPauseMenu();
     }
 }

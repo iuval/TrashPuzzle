@@ -3,9 +3,17 @@ using System.Collections;
 
 public class MenuManager : MonoBehaviour
 {
+    private enum Menu { None, Pause, Game }
+
+    private Menu openMenu;
+
+    public PauseMenu pauseMenu;
+    public MenuOverlay bg;
+
+    public Board board;
+
     void Start()
     {
-
     }
 
     void Update()
@@ -31,9 +39,40 @@ public class MenuManager : MonoBehaviour
         //pauseMenu.playerWon = playerWon;
     }
 
-    public void ShowStartGameMenu()
+    public void OpenPauseMenu()
     {
-        PauseMenu pauseMenu = GetComponent<PauseMenu>();
+        board.PauseGame();
+        bg.enabled = true;
+        openMenu = Menu.Pause;
         pauseMenu.enabled = true;
+        pauseMenu.GetComponent<Animator>().SetTrigger("show_menu");
+        bg.Show();
     }
+
+
+    public void Resume()
+    {
+        board.ResumeGame(   );
+        Close();
+    }
+
+    public void Close()
+    {
+        switch (openMenu)
+        {
+            case Menu.Pause:
+                {
+                    pauseMenu.GetComponent<Animator>().SetTrigger("hide_menu");
+                    break;
+                }
+            case Menu.Game:
+                {
+                    //pauseMenu.GetComponent<Animator>().SetTrigger("hide_menu");
+                    break;
+                }
+        }
+        bg.GetComponent<Animator>().SetTrigger("hide");
+        openMenu = Menu.None;
+    }
+
 }
