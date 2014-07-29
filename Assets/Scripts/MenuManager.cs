@@ -33,11 +33,7 @@ public class MenuManager : MonoBehaviour
 
     public void ShowStartGameMenu()
     {
-        //PauseMenu pauseMenu = GetComponent<PauseMenu>();
-        //pauseMenu.enabled = true;
-        //pauseMenu.mustUpdate = true;
-        //pauseMenu.showScores = false;
-        //pauseMenu.showResume = false;
-        //pauseMenu.showMessage = false;
+        PauseMenu pauseMenu = GetComponent<PauseMenu>();
+        pauseMenu.enabled = true;
     }
 }

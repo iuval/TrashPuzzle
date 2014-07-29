@@ -3,19 +3,20 @@ using System.Collections;
 
 public class Board : MonoBehaviour
 {
-    public int pointsPerCell = 50;
+    public MenuManager menu;
 
-    private GameObject truck_go;
-    public Truck truck;
+    public int pointsPerCell = 50;
 
     private Timer timer;
 
     public GameObject[] cell_prefavs;
-    public int side = 5;
+    public int side_w = 7;
+    public int side_h = 4;
 
-    private float w = 40;
-    private float init_x;
-    private float init_y;
+    public float w = 55;
+    public float h = 45;
+    public float init_x;
+    public float init_y;
 
     private static GameObject[,] cellMatrix;
     private int[][] neighbours = {                       new int[] {  0, -1 },
@@ -39,18 +40,17 @@ public class Board : MonoBehaviour
         player = GetComponent<Player>();
         trashFactory = GetComponent<TrashFactory>();
 
-        truck.Init();
-        truck_go = truck.gameObject;
-
         Restart();
-
-        truck.GoIn();
     }
 
     public void StartGame()
     {
         canPlay = true;
         timer.StartTimer();
+    }
+
+    public void PrepareBoard()
+    {
     }
 
     public void Tap(Vector2 touch)
@@ -61,9 +61,9 @@ public class Board : MonoBehaviour
             {
                 bool touchFound = false;
                 bool emptyFound = false;
-                for (int i = 0; !touchFound && i < side; i++)
+                for (int i = 0; !touchFound && i < side_w; i++)
                 {
-                    for (int j = 0; !touchFound && j < side; j++)
+                    for (int j = 0; !touchFound && j < side_h; j++)
                     {
                         GameObject cell_obj = cellMatrix[i, j];
                         if (cell_obj != null && cell_obj.collider2D.OverlapPoint(touch))
@@ -83,7 +83,7 @@ public class Board : MonoBehaviour
                                         emptyFound = true;
                                         cellMatrix[i, j] = null;
                                         cellMatrix[neig_x, neig_y] = cell_obj;
-                                        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + (neig_x * w), init_y + (neig_y * w)));
+                                        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + (neig_x * w), init_y + (neig_y * h)));
 
                                         cell.Move(neig_x, neig_y, pos.x, pos.y);
 
@@ -107,9 +107,9 @@ public class Board : MonoBehaviour
             {
                 bool touchFound = false;
                 bool emptyFound = false;
-                for (int i = 0; !touchFound && i < side; i++)
+                for (int i = 0; !touchFound && i < side_w; i++)
                 {
-                    for (int j = 0; !touchFound && j < side; j++)
+                    for (int j = 0; !touchFound && j < side_h; j++)
                     {
                         GameObject cell_obj = cellMatrix[i, j];
                         if (cell_obj != null && cell_obj.collider2D.OverlapPoint(touch))
@@ -182,7 +182,7 @@ public class Board : MonoBehaviour
 
     private bool InBoard(int x, int y)
     {
-        return x >= 0 && y >= 0 && x < side && y < side;
+        return x >= 0 && y >= 0 && x < side_w && y < side_h;
     }
 
     // Update is called once per frame
@@ -201,17 +201,14 @@ public class Board : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        init_x = 80;//(truck_go.transform.localScale.x - (side * w)) / 2 + w / 2;
-        init_y = 30;// (Screen.height - (side * w)) / 2 + w / 2;
+        cellMatrix = new GameObject[side_w, side_h];
 
-        cellMatrix = new GameObject[side, side];
+        int emptyX = Random.Range(0, side_w);
+        int emptyY = Random.Range(0, side_h);
 
-        int emptyX = Random.Range(0, side);
-        int emptyY = Random.Range(0, side);
-
-        for (int i = 0; i < side; i++)
+        for (int i = 0; i < side_w; i++)
         {
-            for (int j = 0; j < side; j++)
+            for (int j = 0; j < side_h; j++)
             {
                 if (i != emptyX || j != emptyY)
                 {
@@ -221,7 +218,7 @@ public class Board : MonoBehaviour
                     Cell cell = newCell.GetComponent<Cell>();
                     cell.setCellType(rand);
 
-                    Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * w));
+                    Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * h));
                     pos.z = 0;
                     newCell.transform.position = pos;
 
@@ -237,6 +234,7 @@ public class Board : MonoBehaviour
     public void TimeOut()
     {
         canPlay = false;
-        truck.GoOut();
+
+        menu.ShowStartGameMenu();
     }
 }

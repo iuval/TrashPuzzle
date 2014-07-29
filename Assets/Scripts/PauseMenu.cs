@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
+    public Board board;
     public GUISkin skin;
 
     // Use this for initialization
@@ -31,6 +32,7 @@ public class PauseMenu : MonoBehaviour
         if (GUI.Button(new Rect(30, 125, 300, 50), "RESUME"))
         {
             enabled = false;
+            board.PrepareBoard();
         }
 
         GUI.Label(new Rect(30, 100, 300, 50), "A.I won the game");
