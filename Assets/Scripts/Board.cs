@@ -9,7 +9,9 @@ public class Board : MonoBehaviour
 
     private Timer timer;
 
-    public GameObject[] box_prefavs;
+    public Sprite[] close_box_sprites;
+
+    public GameObject box_prefav;
     public int side_w = 7;
     public int side_h = 4;
 
@@ -28,7 +30,8 @@ public class Board : MonoBehaviour
 
     private bool canPlay = true;
 
-    public RecycleCanText[] trashCans;
+    public RecycleCan[] recycleCans;
+    public Sprite empty_box_sprite;
 
     private Player player;
     private TrashFactory trashFactory;
@@ -70,7 +73,7 @@ public class Board : MonoBehaviour
                         {
                             touchFound = true;
                             Cell cell = cell_obj.GetComponent<Cell>();
-                            if (cell.getCellType() != Cell.CELL_TYPE_FREE)
+                            if (cell.getCellType() != Cell.BOX_CLEAN)
                             {
                                 int neig_x;
                                 int neig_y;
@@ -163,14 +166,21 @@ public class Board : MonoBehaviour
     {
         CalculatePoints(cells);
 
-        GameObject[] trashes = trashFactory.GetTrash(cells.Count, 0);
+        Sprite[] trashes = trashFactory.GetTrash(cells.Count, cellType);
         for (int i = 0; i < cells.Count; i++)
         {
-            trashCans[((GameObject)cells[i]).GetComponent<Cell>().getCellType()].AddToTrash(1);
-            ((GameObject)cells[i]).GetComponent<Cell>().setCellType(Cell.CELL_TYPE_FREE);
+            GameObject box_object = (GameObject)cells[i];
+            Cell box_cell = box_object.GetComponent<Cell>();
+
+            box_cell.setCellType(Cell.BOX_CLEAN);
             if (trashes[i] != null)
             {
-                trashes[i].transform.position = ((GameObject)cells[i]).transform.position;
+                recycleCans[cellType].AddToTrash(1);
+                ((SpriteRenderer)box_cell.renderer).sprite = trashes[i];
+            }
+            else
+            {
+                ((SpriteRenderer)box_cell.renderer).sprite = empty_box_sprite;
             }
         }
     }
@@ -212,20 +222,22 @@ public class Board : MonoBehaviour
             {
                 if (i != emptyX || j != emptyY)
                 {
-                    GameObject newCell;
-                    int rand = Random.Range(0, 5);
-                    newCell = (GameObject)GameObject.Instantiate(box_prefavs[rand]);
-                    Cell cell = newCell.GetComponent<Cell>();
+                    GameObject new_box;
+                    int rand = Random.Range(0, recycleCans.Length);
+                    Sprite box_sprite = close_box_sprites[rand];
+                    new_box = (GameObject)GameObject.Instantiate(box_prefav);
+                    ((SpriteRenderer)new_box.renderer).sprite = box_sprite;
+                    Cell cell = new_box.GetComponent<Cell>();
                     cell.setCellType(rand);
 
                     Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * h));
                     pos.z = 0;
-                    newCell.transform.position = pos;
+                    new_box.transform.position = pos;
 
                     cell.cell_x = i;
                     cell.cell_y = j;
 
-                    cellMatrix[i, j] = newCell;
+                    cellMatrix[i, j] = new_box;
                 }
             }
         }

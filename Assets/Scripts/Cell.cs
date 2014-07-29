@@ -3,12 +3,11 @@ using System.Collections;
 
 public class Cell : MonoBehaviour
 {
-    public const int CELL_TYPE_FREE = -1;
-    public const int CELL_TYPE_1 = 0;
-    public const int CELL_TYPE_2 = 1;
-    public const int CELL_TYPE_3 = 2;
-    public const int CELL_TYPE_4 = 3;
-    public const int CELL_TYPE_5 = 4;
+    public const int BOX_CLEAN = -1;
+    public const int BOX_BLUE = 0;
+    public const int BOX_GREEN = 1;
+    public const int BOX_YELLOW = 2;
+    public const int BOX_ORANGE = 3;
 
     private int type;
 

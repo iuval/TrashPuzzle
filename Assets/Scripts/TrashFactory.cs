@@ -4,11 +4,14 @@ using System.Collections;
 public class TrashFactory : MonoBehaviour
 {
     public float countFor100Persent = 10;
-    public GameObject[] trashCansInOrder;
+    public Sprite[] green_box_sprites;
+    public Sprite[] blue_box_sprites;
+    public Sprite[] yellow_box_sprites;
+    public Sprite[] orange_box_sprites;
 
-    public GameObject[] GetTrash(int count, int type)
+    public Sprite[] GetTrash(int count, int type)
     {
-        GameObject[] result = new GameObject[count];
+        Sprite[] result = new Sprite[count];
         float trashChance = rnd(100 - (150 / count), 100 / count) / 100f;//  Mathf.Pow(2f, count + 5) 
         float rand;
 
@@ -17,7 +20,7 @@ public class TrashFactory : MonoBehaviour
             rand = Random.Range(0, 1f);
             if (rand <= trashChance)
             {
-                result[i] = (GameObject)GameObject.Instantiate(trashCansInOrder[Random.Range(0, trashCansInOrder.Length - 1)]);
+                result[i] = getSpriteByType(type);
             }
             else
             {
@@ -35,5 +38,36 @@ public class TrashFactory : MonoBehaviour
     private float rnd(float mean, float stdev)
     {
         return Mathf.Round(rnd_snd() * stdev + mean);
+    }
+
+    private Sprite getSpriteByType(int type)
+    {
+        Sprite[] sprites = null;
+
+        switch (type)
+        {
+            case 0:
+                {
+                    sprites = blue_box_sprites;
+                    break;
+                }
+            case 1:
+                {
+                    sprites = green_box_sprites;
+                    break;
+                }
+            case 2:
+                {
+                    sprites = yellow_box_sprites;
+                    break;
+                }
+            case 3:
+                {
+                    sprites = orange_box_sprites;
+                    break;
+                }
+        }
+
+        return sprites[Random.Range(0, sprites.Length - 1)];
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 61: {fileID: 6100000}
   m_Layer: 0
-  m_Name: box_8
+  m_Name: trash_box_prefav
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: ab1d0c9f969a30f4681874cef9b2e188, type: 3}
+  m_Sprite: {fileID: 21300002, guid: ebbd6738f0a7efc4ea88a387e41c6240, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
