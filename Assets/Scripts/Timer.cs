@@ -3,10 +3,9 @@ using System.Collections;
 
 public class Timer : MonoBehaviour
 {
-    public GUISkin skin;
     public Color timerColor;
+    private TextMesh time_text;
 
-    private float startTime;
     private float restSeconds;
     private float roundedRestSeconds;
 
@@ -16,23 +15,30 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
+        restSeconds = countDownSeconds;
+        time_text = GameObject.Find("time_text").GetComponent<TextMesh>();
     }
 
     public void StartTimer()
     {
         enabled = true;
-        startTime = Time.time;
+        restSeconds = countDownSeconds;
+    }
+
+    public void Pause()
+    {
+        enabled = false;
+    }
+
+    public void Resume()
+    {
+        enabled = true;
     }
 
     void Update()
     {
-        //make sure that your time is based on when this script was first called
-        //instead of when your game started
-        int guiTime = (int)(Time.time - startTime);
+        restSeconds -= (Time.deltaTime);
 
-        restSeconds = countDownSeconds - guiTime;
-
-        //display messages or whatever here -->do stuff based on your timer
         if (restSeconds == 60)
         {
             print("One Minute Left");
@@ -42,18 +48,9 @@ public class Timer : MonoBehaviour
             print("Time is Over");
             board.TimeOut();
             enabled = false;
-            //do stuff here
         }
 
-        //display the timer
         roundedRestSeconds = Mathf.CeilToInt(restSeconds);
-    }
-
-    void OnGUI()
-    {
-        GUI.skin = skin;
-        GUI.color = timerColor;
-
-        GUI.Label(new Rect(20, 30, 100, 30), roundedRestSeconds + "");
+        time_text.text = roundedRestSeconds + "";
     }
 }

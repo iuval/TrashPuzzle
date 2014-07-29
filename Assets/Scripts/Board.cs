@@ -7,7 +7,7 @@ public class Board : MonoBehaviour
 
     public int pointsPerCell = 50;
 
-    private Timer timer;
+    public Timer timer;
 
     public Sprite[] close_box_sprites;
 
@@ -39,7 +39,6 @@ public class Board : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        timer = GetComponent<Timer>();
         player = GetComponent<Player>();
         trashFactory = GetComponent<TrashFactory>();
 
@@ -55,11 +54,13 @@ public class Board : MonoBehaviour
     public void PauseGame()
     {
         canPlay = false;
+        timer.Pause();
     }
 
     public void ResumeGame()
     {
         canPlay = true;
+        timer.Resume();
     }
 
     public void PrepareBoard()
@@ -242,6 +243,7 @@ public class Board : MonoBehaviour
 
                     Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * h));
                     pos.z = 0;
+                    new_box.transform.parent = transform;
                     new_box.transform.position = pos;
 
                     cell.cell_x = i;
@@ -256,7 +258,7 @@ public class Board : MonoBehaviour
     public void TimeOut()
     {
         canPlay = false;
-
+        player.SubLife();
         menu.OpenPauseMenu();
     }
 }

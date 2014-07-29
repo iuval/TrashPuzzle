@@ -39,20 +39,39 @@ public class MenuManager : MonoBehaviour
         //pauseMenu.playerWon = playerWon;
     }
 
+    public void OpenGameMenu()
+    {
+        bg.enabled = true;
+        bg.Show();
+        openMenu = Menu.Pause;
+        pauseMenu.enabled = true;
+        pauseMenu.UpdateData();
+        pauseMenu.GetComponent<Animator>().SetTrigger("show_menu");
+    }
+
     public void OpenPauseMenu()
     {
         board.PauseGame();
         bg.enabled = true;
-        openMenu = Menu.Pause;
-        pauseMenu.enabled = true;
-        pauseMenu.GetComponent<Animator>().SetTrigger("show_menu");
         bg.Show();
+        openMenu = Menu.Game;
+        pauseMenu.enabled = true;
+        pauseMenu.UpdateData();
+        pauseMenu.GetComponent<Animator>().SetTrigger("show_menu");
     }
 
 
     public void Resume()
     {
-        board.ResumeGame(   );
+        if (openMenu == Menu.Pause)
+        {
+            board.ResumeGame();
+        }
+        else if (openMenu == Menu.Game)
+        {
+            board.Restart();
+            board.StartGame();
+        }
         Close();
     }
 
@@ -67,12 +86,13 @@ public class MenuManager : MonoBehaviour
                 }
             case Menu.Game:
                 {
-                    //pauseMenu.GetComponent<Animator>().SetTrigger("hide_menu");
+                    pauseMenu.GetComponent<Animator>().SetTrigger("hide_menu");
                     break;
                 }
         }
         bg.GetComponent<Animator>().SetTrigger("hide");
         openMenu = Menu.None;
+        bg.enabled = false;
     }
 
 }

@@ -3,7 +3,9 @@ using System.Collections;
 
 public class HUD : MonoBehaviour
 {
-    public GUISkin skin;
+    private TextMesh score_text;
+    private TextMesh lifes_text;
+
     public GameObject board_go;
     public Color scoreColor;
 
@@ -17,19 +19,14 @@ public class HUD : MonoBehaviour
     void Start()
     {
         player = board_go.GetComponent<Player>();
+        score_text = GameObject.Find("score_text").GetComponent<TextMesh>();
+        lifes_text = GameObject.Find("lifes_text").GetComponent<TextMesh>();
     }
 
     // Update is called once per frame
     void Update()
     {
-    }
-
-    void OnGUI()
-    {
-        GUI.skin = skin;
-
-        GUI.color = scoreColor;
-        GUI.Label(new Rect(420, 20, 360, 370), player.Points + "");
-
+        score_text.text = player.Points + "";
+        lifes_text.text = player.Lifes + "";
     }
 }
