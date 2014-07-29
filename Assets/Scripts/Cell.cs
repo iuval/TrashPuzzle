@@ -21,48 +21,14 @@ public class Cell : MonoBehaviour
     private float target_x;
     private float target_y;
 
-    private Animator anim;
-
     public void setCellType(int type)
     {
         this.type = type;
-
-        SpriteRenderer ren = GetComponent<SpriteRenderer>();
-        switch (type)
-        {
-            case CELL_TYPE_FREE:
-                {
-                    ren.color = Color.green;
-                    anim.SetBool("Clean", false);
-                } break;
-            case CELL_TYPE_1:
-                {
-                    ren.color = Color.blue;
-                } break;
-            case CELL_TYPE_2:
-                {
-                    ren.color = Color.yellow;
-                } break;
-            case CELL_TYPE_3:
-                {
-                    ren.color = Color.red;
-                } break;
-            case CELL_TYPE_4:
-                {
-                    ren.color = Color.white;
-                } break;
-            case CELL_TYPE_5:
-                {
-                    ren.color = Color.magenta;
-                } break;
-        }
     }
 
     // Use this for initialization
     void Start()
     {
-        anim = GetComponent<Animator>();
-        anim.SetBool("Clean", true);
     }
 
     // Update is called once per frame

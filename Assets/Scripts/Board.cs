@@ -9,7 +9,7 @@ public class Board : MonoBehaviour
 
     private Timer timer;
 
-    public GameObject[] cell_prefavs;
+    public GameObject[] box_prefavs;
     public int side_w = 7;
     public int side_h = 4;
 
@@ -214,7 +214,7 @@ public class Board : MonoBehaviour
                 {
                     GameObject newCell;
                     int rand = Random.Range(0, 5);
-                    newCell = (GameObject)GameObject.Instantiate(cell_prefavs[rand]);
+                    newCell = (GameObject)GameObject.Instantiate(box_prefavs[rand]);
                     Cell cell = newCell.GetComponent<Cell>();
                     cell.setCellType(rand);
 

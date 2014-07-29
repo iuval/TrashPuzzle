@@ -6,6 +6,11 @@ public class PauseMenu : MonoBehaviour
     public Board board;
     public GUISkin skin;
 
+    public void Open()
+    {
+        GetComponent<Animator>().SetTrigger("open_menu");
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -20,8 +25,6 @@ public class PauseMenu : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = skin;
-        //layout start
-        GUI.BeginGroup(new Rect(Screen.width / 2 - 180, Screen.height / 2 - 185, 360, 370));
 
         //the menu background box
         GUI.Box(new Rect(0, 0, 360, 370), "");
@@ -70,8 +73,5 @@ public class PauseMenu : MonoBehaviour
         {
             Application.Quit();
         }
-
-        //layout end
-        GUI.EndGroup();
     }
 }

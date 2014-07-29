@@ -7,6 +7,8 @@ public class HUD : MonoBehaviour
     public GameObject board_go;
     public Color scoreColor;
 
+    public GameObject pause_menu_go;
+
     private Rect btnInGameMenu;
 
     private Player player;
@@ -14,7 +16,6 @@ public class HUD : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         player = board_go.GetComponent<Player>();
     }
 
@@ -26,8 +27,6 @@ public class HUD : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = skin;
-        GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
-
         GUI.color = scoreColor;
         GUI.Label(new Rect(420, 20, 360, 370), player.Points + "");
 
@@ -36,9 +35,9 @@ public class HUD : MonoBehaviour
             //pause the game
             //    Time.timeScale = 0;
             //show the pause menu
-            PauseMenu pauseMenu = GetComponent<PauseMenu>();
+            PauseMenu pauseMenu = pause_menu_go.GetComponent<PauseMenu>();
             pauseMenu.enabled = true;
+            pauseMenu.Open();
         }
-        GUI.EndGroup();
     }
 }

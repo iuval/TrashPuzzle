@@ -3,19 +3,19 @@ using System.Collections;
 
 public class Timer : MonoBehaviour
 {
+    public GUISkin skin;
+    public Color timerColor;
+
     private float startTime;
     private float restSeconds;
     private float roundedRestSeconds;
-    private float displaySeconds;
-    private float displayMinutes;
 
     public int countDownSeconds;
 
-    private Board board;
+    public Board board;
 
     void Start()
     {
-        board = GetComponent<Board>();
     }
 
     public void StartTimer()
@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour
         startTime = Time.time;
     }
 
-    void OnGUI()
+    void Update()
     {
         //make sure that your time is based on when this script was first called
         //instead of when your game started
@@ -47,10 +47,13 @@ public class Timer : MonoBehaviour
 
         //display the timer
         roundedRestSeconds = Mathf.CeilToInt(restSeconds);
-        displaySeconds = roundedRestSeconds % 60;
-        displayMinutes = roundedRestSeconds / 60;
+    }
 
-        string text = string.Format("{0:00}:{1:00}", displayMinutes, displaySeconds);
-        GUI.Label(new Rect(500, 10, 100, 30), text);
+    void OnGUI()
+    {
+        GUI.skin = skin;
+        GUI.color = timerColor;
+
+        GUI.Label(new Rect(20, 30, 100, 30), roundedRestSeconds + "");
     }
 }
