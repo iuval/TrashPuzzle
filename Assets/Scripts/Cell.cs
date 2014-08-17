@@ -35,7 +35,7 @@ public class Cell : MonoBehaviour
     {
         if (moving)
         {
-            Vector2 pos = transform.position;
+            Vector2 pos = transform.localPosition;
             pos += movement * Time.deltaTime;
 
             if (Vector2.Distance(pos, new Vector2(target_x, target_y)) < 0.1)
@@ -44,7 +44,7 @@ public class Cell : MonoBehaviour
                 pos.y = target_y;
                 moving = false;
             }
-            transform.position = pos;
+            transform.localPosition = pos;
         }
     }
 
@@ -58,20 +58,20 @@ public class Cell : MonoBehaviour
 
         movement = Vector2.zero;
 
-        if (target_x > transform.position.x)
+        if (target_x > transform.localPosition.x)
         {
             movement.x = speed;
         }
-        else if (target_x < transform.position.x)
+        else if (target_x < transform.localPosition.x)
         {
             movement.x = -speed;
         }
 
-        if (target_y > transform.position.y)
+        if (target_y > transform.localPosition.y)
         {
             movement.y = speed;
         }
-        else if (target_y < transform.position.y)
+        else if (target_y < transform.localPosition.y)
         {
             movement.y = -speed;
         }

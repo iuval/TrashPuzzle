@@ -43,7 +43,7 @@ public class MenuManager : MonoBehaviour
     {
         bg.enabled = true;
         bg.Show();
-        openMenu = Menu.Pause;
+        openMenu = Menu.Game;
         pauseMenu.enabled = true;
         pauseMenu.UpdateData();
         pauseMenu.GetComponent<Animator>().SetTrigger("show_menu");
@@ -54,7 +54,7 @@ public class MenuManager : MonoBehaviour
         board.PauseGame();
         bg.enabled = true;
         bg.Show();
-        openMenu = Menu.Game;
+        openMenu = Menu.Pause;
         pauseMenu.enabled = true;
         pauseMenu.UpdateData();
         pauseMenu.GetComponent<Animator>().SetTrigger("show_menu");

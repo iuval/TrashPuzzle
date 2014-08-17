@@ -14,11 +14,7 @@ public class Board : MonoBehaviour
     public GameObject box_prefav;
     public int side_w = 7;
     public int side_h = 4;
-
-    public float w = 55;
-    public float h = 45;
-    public float init_x;
-    public float init_y;
+    public float size_scale_position = 1.08f;
 
     private static GameObject[,] cellMatrix;
     private int[][] neighbours = {                       new int[] {  0, -1 },
@@ -97,9 +93,13 @@ public class Board : MonoBehaviour
                                         emptyFound = true;
                                         cellMatrix[i, j] = null;
                                         cellMatrix[neig_x, neig_y] = cell_obj;
-                                        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + (neig_x * w), init_y + (neig_y * h)));
 
-                                        cell.Move(neig_x, neig_y, pos.x, pos.y);
+                                        Bounds boundz = ((SpriteRenderer)cell_obj.renderer).sprite.bounds;
+                                        Vector3 zize = (boundz.min - boundz.max) * size_scale_position;
+                                        float w = zize.x;
+                                        float h = zize.y;
+
+                                        cell.Move(neig_x, neig_y, neig_x * w, neig_y * h);
 
                                         movingCell = cell;
                                         acceptsMovement = false;
@@ -241,10 +241,13 @@ public class Board : MonoBehaviour
                     Cell cell = new_box.GetComponent<Cell>();
                     cell.setCellType(rand);
 
-                    Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(init_x + i * w, init_y + j * h));
-                    pos.z = 0;
-                    new_box.transform.parent = transform;
-                    new_box.transform.position = pos;
+                    new_box.transform.parent = gameObject.transform;
+
+                    Vector3 zize = (box_sprite.bounds.min - box_sprite.bounds.max) * size_scale_position;
+                    float w = zize.x;
+                    float h = zize.y;
+
+                    new_box.transform.localPosition = new Vector3(i * w, j * h);
 
                     cell.cell_x = i;
                     cell.cell_y = j;

@@ -1997,10 +1997,7 @@ MonoBehaviour:
   box_prefav: {fileID: 100000, guid: 095699a5cdba72a468d77fd037d0c94f, type: 2}
   side_w: 7
   side_h: 4
-  w: 52
-  h: 55
-  init_x: 110
-  init_y: 60
+  size_scale_position: 1.07000005
   recycleCans:
   - {fileID: 1184475472}
   - {fileID: 933856431}
@@ -2014,7 +2011,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1879681473}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 6.13000011, y: 2.25, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
