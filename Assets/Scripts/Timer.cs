@@ -21,12 +21,14 @@ public class Timer : MonoBehaviour
 
     public void StartTimer()
     {
+        time_text.GetComponent<Animator>().SetBool("pulse", false);
         enabled = true;
         restSeconds = countDownSeconds;
     }
 
     public void Pause()
     {
+        time_text.GetComponent<Animator>().SetBool("pulse", false);
         enabled = false;
     }
 
@@ -39,18 +41,19 @@ public class Timer : MonoBehaviour
     {
         restSeconds -= (Time.deltaTime);
 
-        if (restSeconds == 60)
+        roundedRestSeconds = Mathf.CeilToInt(restSeconds);
+
+        if (roundedRestSeconds == 10)
         {
-            print("One Minute Left");
+            time_text.GetComponent<Animator>().SetBool("pulse", true);
         }
-        if (restSeconds <= 0)
+        if (roundedRestSeconds <= 0)
         {
-            print("Time is Over");
+            time_text.GetComponent<Animator>().SetBool("pulse", false);
             board.TimeOut();
             enabled = false;
         }
 
-        roundedRestSeconds = Mathf.CeilToInt(restSeconds);
         time_text.text = roundedRestSeconds + "";
     }
 }

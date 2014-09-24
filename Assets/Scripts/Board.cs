@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Board : MonoBehaviour
 {
+    public static int CurrentLevel = 0;
+
     public MenuManager menu;
 
     public int pointsPerCell = 50;
@@ -217,9 +219,13 @@ public class Board : MonoBehaviour
 
     public void Restart()
     {
-        foreach (Cell child in transform.GetComponentsInChildren<Cell>())
+        if (cellMatrix != null)
         {
-            GameObject.Destroy(child.gameObject);
+            foreach (GameObject child in cellMatrix)
+            {
+                if (child != null)
+                    GameObject.Destroy(child.gameObject);
+            }
         }
 
         cellMatrix = new GameObject[side_w, side_h];
@@ -262,6 +268,6 @@ public class Board : MonoBehaviour
     {
         canPlay = false;
         player.SubLife();
-        menu.OpenPauseMenu();
+        menu.OpenGameMenu();
     }
 }

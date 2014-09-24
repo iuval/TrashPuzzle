@@ -22,6 +22,7 @@ public class RecycleCan : MonoBehaviour
 
     public void AddToTrash(int value)
     {
+        GetComponent<Animator>().SetTrigger("shake");
         TrashCanValue += value;
         sprite_index++;
 

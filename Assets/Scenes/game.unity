@@ -684,6 +684,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 933856429}
   - 212: {fileID: 933856430}
+  - 95: {fileID: 933856432}
   - 114: {fileID: 933856431}
   m_Layer: 0
   m_Name: can_green
@@ -745,6 +746,21 @@ MonoBehaviour:
   - {fileID: 21300008, guid: 63e0a779bcfde1a48886239652f29308, type: 3}
   - {fileID: 21300010, guid: 63e0a779bcfde1a48886239652f29308, type: 3}
   steps: 14000000280000003c0000005000000064000000
+--- !u!95 &933856432
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 9500000, guid: 89e2997c6299ec34d98f5cb41c332a3f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1240899188}
+  m_GameObject: {fileID: 933856428}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81f6957795746764e9698dbc052db00e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
 --- !u!1 &978278941
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +770,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 978278943}
   - 212: {fileID: 978278942}
+  - 95: {fileID: 978278945}
   - 114: {fileID: 978278944}
   m_Layer: 0
   m_Name: can_orange
@@ -815,6 +832,21 @@ MonoBehaviour:
   - {fileID: 21300008, guid: e14c1fa5445bf9b4ca8974e83ea64b84, type: 3}
   - {fileID: 21300010, guid: e14c1fa5445bf9b4ca8974e83ea64b84, type: 3}
   steps: 14000000280000003c0000005000000064000000
+--- !u!95 &978278945
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 9500000, guid: fd848a3c7c2278849982ad9b014f8658,
+    type: 2}
+  m_PrefabInternal: {fileID: 1203202465}
+  m_GameObject: {fileID: 978278941}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81f6957795746764e9698dbc052db00e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
 --- !u!1 &978798814
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +857,7 @@ GameObject:
   - 4: {fileID: 978798815}
   - 23: {fileID: 978798817}
   - 102: {fileID: 978798816}
+  - 95: {fileID: 978798818}
   m_Layer: 0
   m_Name: time_text
   m_TagString: Untagged
@@ -878,6 +911,7 @@ Renderer:
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 445e3d8f3f1352e4893f05a35db80bd7, type: 3}
+  - {fileID: 2100000, guid: 445e3d8f3f1352e4893f05a35db80bd7, type: 3}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -885,6 +919,20 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!95 &978798818
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 978798814}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd4b61e613c93c94b9e771b1ef5bb972, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
 --- !u!1001 &991491671
 Prefab:
   m_ObjectHideFlags: 0
@@ -1248,6 +1296,7 @@ GameObject:
   - 4: {fileID: 1184475470}
   - 212: {fileID: 1184475471}
   - 114: {fileID: 1184475472}
+  - 95: {fileID: 1184475473}
   m_Layer: 0
   m_Name: can_blue
   m_TagString: Untagged
@@ -1309,6 +1358,21 @@ MonoBehaviour:
   - {fileID: 21300008, guid: 9151fdcdb92aad2449ee8acb4c20e0e2, type: 3}
   - {fileID: 21300010, guid: 9151fdcdb92aad2449ee8acb4c20e0e2, type: 3}
   steps: 14000000280000003c0000005000000064000000
+--- !u!95 &1184475473
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 9500000, guid: 5180cda8a449d4a44a4cc1ddc5f70dc4,
+    type: 2}
+  m_PrefabInternal: {fileID: 991491671}
+  m_GameObject: {fileID: 1184475469}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81f6957795746764e9698dbc052db00e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
 --- !u!1001 &1203202465
 Prefab:
   m_ObjectHideFlags: 0
@@ -1456,6 +1520,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1269761562}
   - 212: {fileID: 1269761563}
+  - 95: {fileID: 1269761565}
   - 114: {fileID: 1269761564}
   m_Layer: 0
   m_Name: can_yellow
@@ -1517,6 +1582,21 @@ MonoBehaviour:
   - {fileID: 21300008, guid: d798f81a9b4379d43862fc6e3acceb3d, type: 3}
   - {fileID: 21300010, guid: d798f81a9b4379d43862fc6e3acceb3d, type: 3}
   steps: 14000000280000003c0000005000000064000000
+--- !u!95 &1269761565
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 9500000, guid: 71f3a17690de7af45996a4c11860a524,
+    type: 2}
+  m_PrefabInternal: {fileID: 1402721291}
+  m_GameObject: {fileID: 1269761561}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81f6957795746764e9698dbc052db00e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
 --- !u!1001 &1402721291
 Prefab:
   m_ObjectHideFlags: 0

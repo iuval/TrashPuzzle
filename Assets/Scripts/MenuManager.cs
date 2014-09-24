@@ -69,6 +69,7 @@ public class MenuManager : MonoBehaviour
         }
         else if (openMenu == Menu.Game)
         {
+            Debug.Log("Restart");
             board.Restart();
             board.StartGame();
         }
